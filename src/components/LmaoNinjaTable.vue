@@ -1,40 +1,68 @@
 <template>
-  <table>
-    <tr>
-      <th>#</th>
-      <th class="pointer" @click="sortBy('country')">Country</th>
-      <th class="pointer" @click="sortBy('cases')">Total Cases</th>
-      <th class="pointer" @click="sortBy('todayCases')">Cases Today</th>
-      <th class="pointer" @click="sortBy('deaths')">Total Deaths</th>
-      <th class="pointer" @click="sortBy('todayDeaths')">Deaths Today</th>
-      <th class="pointer" @click="sortBy('recovered')">Recoveries</th>
-      <th class="pointer" @click="sortBy('active')">Active Cases</th>
-      <th class="pointer" @click="sortBy('critical')">Critical Condition</th>
-      <th class="pointer" @click="sortBy('casesPerOneMillion')">Cases Per Million</th>
-    </tr>
-    <tr
-      v-for="(record, index) in sortedRecords"
-      v-bind:key="index"
-      v-bind:index="index"
-    >
-      <td>{{ index + 1 }}</td>
-      <td>{{ record.country }}</td>
-      <td>{{ record.cases }}</td>
-      <td>{{ record.todayCases }}</td>
-      <td>{{ record.deaths }}</td>
-      <td>{{ record.todayDeaths }}</td>
-      <td>{{ record.recovered }}</td>
-      <td>{{ record.active }}</td>
-      <td>{{ record.critical }}</td>
-      <td>{{ record.casesPerOneMillion }}</td>
-    </tr>
-  </table>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12">
+        <v-row align="center" justify="center">
+          <v-data-table
+            :headers="headers"
+            :items="records"
+            :itemsPerPage="records.length"
+            :sort-by="['deaths']"
+            :sort-desc="[true]"
+            class="elevation-1"
+            hide-default-footer
+          ></v-data-table>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      headers: [
+        {},
+        {
+          text: "Country",
+          align: "start",
+          sortable: true,
+          value: "country"
+        },
+        {
+          text: "Cases",
+          value: "cases"
+        },
+        {
+          text: "Today's Cases",
+          value: "todayCases"
+        },
+        {
+          text: "Deaths",
+          value: "deaths"
+        },
+        {
+          text: "Today's Deaths",
+          value: "todayDeaths"
+        },
+        {
+          text: "Recoveries",
+          value: "recovered"
+        },
+        {
+          text: "Active Cases",
+          value: "active"
+        },
+        {
+          text: "Critical Cases",
+          value: "critical"
+        },
+        {
+          text: "Cases Per Million",
+          value: "casesPerOneMillion"
+        }
+      ],
       sortKey: "todayCases",
       sortOrder: "desc"
     };
@@ -43,30 +71,6 @@ export default {
     records: {
       type: Array,
       required: true
-    }
-  },
-  methods: {
-    sortBy(field) {
-      let hasSameField = this.sortKey === field;
-
-      if (hasSameField) {
-        return this.reverseOrder();
-      } else {
-        this.sortKey = field;
-        this.sortOrder = "desc";
-      }
-    },
-    reverseOrder() {
-      if (this.sortOrder === "desc") {
-        this.sortOrder = "asc";
-      } else {
-        this.sortOrder = "desc";
-      }
-    }
-  },
-  computed: {
-    sortedRecords() {
-      return this._.orderBy(this.records, this.sortKey, this.sortOrder);
     }
   }
 };

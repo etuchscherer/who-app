@@ -22,7 +22,7 @@ export default {
   async mounted() {
     this.records = await this.$get(
       // "//138.197.194.173/api/Dimension"
-      "https://corona.lmao.ninja/countries",
+      "https://corona.lmao.ninja/countries"
       // "https://coronavirus.m.pipedream.net/"
       // "//apps.who.int/gho/athena/api/GHO?format=json"
     );

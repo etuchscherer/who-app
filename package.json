@@ -15,7 +15,7 @@
     "vue-lodash": "^2.1.2",
     "vue-plugin-axios": "^1.0.14",
     "vue-router": "^3.1.5",
-    "vuetify": "^2.2.11",
+    "vuetify": "^2.6.10",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
